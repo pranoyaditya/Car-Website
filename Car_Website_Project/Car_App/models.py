@@ -15,7 +15,7 @@ class Car(models.Model):
     car_name = models.CharField(max_length=100)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     car_details = models.TextField()
-    quantity = models.IntegerField()
+    quantity = models.IntegerField(default=0)
     car_image = models.ImageField()
     slug = models.SlugField(unique=True, blank=True)
 

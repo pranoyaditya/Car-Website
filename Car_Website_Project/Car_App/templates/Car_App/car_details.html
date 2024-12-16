@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}Car details{% endblock title %}
+
+{% block content %}
+
+    {% comment %} contains car details {% endcomment %}
+    <div class="container text-center mt-5">
+        <div class="row align-items-center">
+            <!-- Image Column -->
+            <div class="col-md-6">
+                <img src="{{ car.car_image.url }}" alt="Car Image" class="img-fluid rounded shadow-lg" style="max-height: 400px; object-fit: cover;">
+            </div>
+            <!-- Details Column -->
+            <div class="col-md-6">
+                <h2 class="my-3 text-white"> {{ car.brand }} {{ car.car_name }}</h2>
+                <h5 class="text-muted" style="color: white !important">{{ car.car_details }}</h5>
+                <h5 class="text-muted" style="color: white !important">Price: {{ car.price }}</h5>
+                <h5 class="text-muted" style="color: white !important">Quantity: {{ car.quantity }}</h5>
+                <div class="mt-4">
+                    {% if user.is_authenticated %}
+                        <form action="{% url 'buy_car' car.pk %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-secondary">Buy Now</button>
+                        </form>  
+                    {% endif %}
+                    <a href="{% url 'home_page' %}" class="btn btn-primary my-3">Back to Home</a>                  
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% comment %} contains comments {% endcomment %}
+    <div class="card m-2">
+        <h5 class="p-3">Total Comments: {{ comments | length }}</h5>
+          {% for comment in comments %}
+            <div class="card-body border m-2">
+                <p><b>{{comment.name}}</b> {{comment.created_on}}</p>
+                <p>{{comment.body}}</p>
+            </div>
+          {% endfor %}
+    </div>
+
+    {% comment %} contains comment form {% endcomment %}
+    {% if user.is_authenticated %}
+        <div class="card m-2">
+            <div class="card-body">
+            <form method='post'>
+                {% csrf_token %}
+                <h3>Add comment </h3>
+                {{comment_form | crispy}}
+                <button class="btn btn-primary mb-3"> Submit </button>
+            </form>
+            </div>
+        </div>
+    {% endif %}
+
+{% endblock content %}
