@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}Home{% endblock title %}
+
+{% block content %}
+
+    {% comment %} Heading and Static image container {% endcomment %}
+    <div class="container-fluid text-white">
+        <div class="row align-items-center my-5">
+            <div class="col-md-6 p-3">
+                <h1 class="display-4">Drive Your Dreams Home Today!</h1>
+                <p class="lead">
+                    Welcome to the ultimate destination for car enthusiasts. Discover a wide range of vehicles that suit your style, budget, and personality. Whether you're looking for a sleek sedan, a powerful SUV, or an eco-friendly ride, we have it all. Let your journey begin with the perfect car, just waiting for you.
+                </p>
+            </div>
+            <div class="col-md-6 text-center">
+                <img src="{% static 'McLaren-50-home-image.jpg' %}" class="img-fluid rounded" alt="Car Image">
+            </div>
+        </div>
+    </div>
+
+    {% comment %} Filter container {% endcomment %}
+    <div class="d-flex flex-wrap justify-content-between mx-5 text-white">
+        {% for brand in brands%}
+            <div class="px-5 py-3 rounded border border-success" style="background-color: #333333;">
+                <a href="#" class="text-white text-decoration-none">
+                    {{ brand.brand_name }}
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+    
+
+{% endblock content %}
