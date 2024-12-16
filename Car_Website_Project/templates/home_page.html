@@ -25,12 +25,34 @@
     <div class="d-flex flex-wrap justify-content-between mx-5 text-white">
         {% for brand in brands%}
             <div class="px-5 py-3 rounded border border-success" style="background-color: #333333;">
-                <a href="#" class="text-white text-decoration-none">
+                <a href="{% url 'home_page' brand.id %}" class="text-white text-decoration-none">
                     {{ brand.brand_name }}
                 </a>
             </div>
         {% endfor %}
     </div>
     
+    {% comment %} Contains car cards {% endcomment %}
+    <div class="m-5">
+        <h2>Total cars found: {{cars | length}}</h2>
+    </div>
+
+    <div class="d-flex flex-wrap justify-content-start mx-5 my-5 gap-4">
+        {% for car in cars %}
+            <div class="card" style="width: 18rem; background-color: #2F4F4F; border: none;">
+                <img src="{{ car.car_image.url }}" class="card-img-top" alt="...">
+                <div class="card-body text-white" style="background-color: #2F4F4F;">
+                    <h5 class="card-title"> {{ car.car_name }} </h5>
+                </div>
+                <ul class="list-group list-group-flush" style="background-color: #2F4F4F;">
+                    <li class="list-group-item text-white" style="background-color: #2F4F4F; border: none;">Brand: {{ car.brand }}</li>
+                    <li class="list-group-item text-white" style="background-color: #2F4F4F; border: none;">Price: {{ car.price }}</li>
+                    <li class="list-group-item text-white" style="background-color: #2F4F4F; border: none;">
+                        <a href="#" class="card-link text-white">View Details</a>
+                    </li>
+                </ul>
+            </div>
+        {% endfor %}
+    </div>
 
 {% endblock content %}
