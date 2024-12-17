@@ -4,13 +4,28 @@
 {% block title %}Profile{% endblock title %}
 
 {% block content %}
-        
+    
+    {% comment %} contains the message {% endcomment %}
+    {% if messages %}
+        <div class="messages-container">
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+
     <div class="container-fluid text-center my-5">
         <a href="{% url 'profile_update' %}" class="btn btn-warning"> Edit profile</a>
     </div>
 
     {% comment %} contains cards of owned cars {% endcomment %}
     <div class="d-flex flex-wrap justify-content-start mx-5 my-5 gap-4">
+        <button class="container text-center mt-5 btn text-white bg-dark disabled">
+            <h3>Your cars:</h3> 
+        </button>
         {% for purchase in purchased_cars %}
             <div class="card" style="width: 18rem; background-color: #2F4F4F; border: none;">
                 <img src="{{ purchase.car.car_image.url }}" class="card-img-top" alt="...">
@@ -22,7 +37,7 @@
                     <li class="list-group-item text-white" style="background-color: #2F4F4F; border: none;">Price: {{ purchase.car.price }}</li>
                     <li class="list-group-item text-white" style="background-color: #2F4F4F; border: none;">Purchased Date: {{ purchase.purchase_date }}</li>
                     <li class="list-group-item text-white" style="background-color: #2F4F4F; border: none;">
-                        <a href="{% url 'car_details_page' purchase.car.pk %}" class="card-link text-white">View Details</a>
+                        <a href="{% url 'car_details_page' purchase.car.pk %}" class="btn btn-info text-white">View Details</a>
                     </li>
                 </ul>
             </div>

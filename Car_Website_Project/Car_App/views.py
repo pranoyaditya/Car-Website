@@ -51,4 +51,4 @@ class BuyCarView(LoginRequiredMixin, View):
         else:
             messages.error(request, "Sorry, this car is out of stock!")
 
-        return redirect('home_page')
+        return redirect('profile_page')

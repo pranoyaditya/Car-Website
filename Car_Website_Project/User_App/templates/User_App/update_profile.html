@@ -6,6 +6,7 @@
 
     <form method="post" style="width: 50%; margin: auto">
         {% csrf_token %}
+        <h4 class="my-4">Update your data</h4>
         {{ form | crispy}}
         <button class="btn btn-primary">Update</button>
     </form>
