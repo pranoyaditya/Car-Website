@@ -4,9 +4,32 @@
 {% block title %}Profile{% endblock title %}
 
 {% block content %}
-
-    
-    <h2 class="mt-4">Welcome to profile page. </h2>
         
+    <div class="container-fluid text-center my-5">
+        <a href="{% url 'profile_update' %}" class="btn btn-warning"> Edit profile</a>
+    </div>
+
+    {% comment %} contains cards of owned cars {% endcomment %}
+    <div class="d-flex flex-wrap justify-content-start mx-5 my-5 gap-4">
+        {% for purchase in purchased_cars %}
+            <div class="card" style="width: 18rem; background-color: #2F4F4F; border: none;">
+                <img src="{{ purchase.car.car_image.url }}" class="card-img-top" alt="...">
+                <div class="card-body text-white" style="background-color: #2F4F4F;">
+                    <h5 class="card-title"> {{ purchase.car.car_name }} </h5>
+                </div>
+                <ul class="list-group list-group-flush" style="background-color: #2F4F4F;">
+                    <li class="list-group-item text-white" style="background-color: #2F4F4F; border: none;">Brand: {{ purchase.car.brand }}</li>
+                    <li class="list-group-item text-white" style="background-color: #2F4F4F; border: none;">Price: {{ purchase.car.price }}</li>
+                    <li class="list-group-item text-white" style="background-color: #2F4F4F; border: none;">Purchased Date: {{ purchase.purchase_date }}</li>
+                    <li class="list-group-item text-white" style="background-color: #2F4F4F; border: none;">
+                        <a href="{% url 'car_details_page' purchase.car.pk %}" class="card-link text-white">View Details</a>
+                    </li>
+                </ul>
+            </div>
+        {% empty %}
+            <h4 class="container text-center mt-5">No cars purchased yet!</h4>
+        {% endfor %}
+    </div>
+
 
 {% endblock content %}
